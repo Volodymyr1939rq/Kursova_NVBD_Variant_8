@@ -1,0 +1,16 @@
+USE master
+GO 
+
+IF DB_ID('InventoryManagement_OLTP') IS NOT NULL
+BEGIN 
+     ALTER DATABASE InventoryManagement_OLTP SET SINGLE_USER WITH ROLLBACK IMMEDIATE;
+     DROP DATABASE InventoryManagement_OLTP
+END
+GO
+
+CREATE DATABASE InventoryManagement_OLTP
+GO
+
+
+ALTER DATABASE InventoryManagement_OLTP SET RECOVERY SIMPLE
+GO
