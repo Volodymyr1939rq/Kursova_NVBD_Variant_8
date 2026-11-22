@@ -1,0 +1,2379 @@
+﻿<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="11/15/2026 11:14:45 AM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="VOLODYMYR"
+  DTS:CreatorName="VOLODYMYR\ruden"
+  DTS:DTSID="{B409126B-5B06-4B7B-9FAC-8F85565D8912}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="17.0.1016.0"
+  DTS:LocaleID="1058"
+  DTS:ObjectName="Package1"
+  DTS:PackageType="5"
+  DTS:VersionBuild="21"
+  DTS:VersionGUID="{D736E6A9-8C1A-401C-B617-9C6F0E1E1FAB}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:ConnectionManagers>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[FF_IncomingCSV]"
+      DTS:CreationName="FLATFILE"
+      DTS:DTSID="{CB4D7CD1-D228-4767-8795-F3FD9A1F24A4}"
+      DTS:ObjectName="FF_IncomingCSV">
+      <DTS:PropertyExpression
+        DTS:Name="ConnectionString">@[User::CurrentFilePath]</DTS:PropertyExpression>
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:Format="Delimited"
+          DTS:LocaleID="1058"
+          DTS:HeaderRowDelimiter="_x000A_"
+          DTS:ColumnNamesInFirstDataRow="True"
+          DTS:RowDelimiter=""
+          DTS:TextQualifier="_x003C_none_x003E_"
+          DTS:CodePage="65001"
+          DTS:ConnectionString="C:\ETL_Incoming\supply_batch_01.csv">
+          <DTS:FlatFileColumns>
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="WarehouseCode"
+              DTS:DTSID="{5C23EBD2-FFE9-40CE-B1B6-72224DF00685}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="ProductCode"
+              DTS:DTSID="{9E00DECE-DF96-4D95-86FB-5FD539579B5B}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="Quantity"
+              DTS:DTSID="{218F29DF-64D3-4EF4-A304-4E0F9AB2E887}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x000A_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="UnitPrice"
+              DTS:DTSID="{9E52EF09-A69B-4CF1-B8B2-5FC6950894E8}"
+              DTS:CreationName="" />
+          </DTS:FlatFileColumns>
+        </DTS:ConnectionManager>
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[localhost.InventoryManagement_DW]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{93E1B864-C286-43BD-B83C-9703F9723FCB}"
+      DTS:ObjectName="localhost.InventoryManagement_DW">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectRetryCount="1"
+          DTS:ConnectRetryInterval="5"
+          DTS:ConnectionString="Data Source=localhost;Initial Catalog=InventoryManagement_DW;Provider=MSOLEDBSQL19.1;Integrated Security=SSPI;Trust Server Certificate=True;Application Name=SSIS-Package1-{93E1B864-C286-43BD-B83C-9703F9723FCB}localhost.InventoryManagement_DW;Auto Translate=False;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+  </DTS:ConnectionManagers>
+  <DTS:Variables>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{9F0F2359-36A7-4E2E-838A-ED20E1868AA0}"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="CurrentFilePath">
+      <DTS:VariableValue
+        DTS:DataType="8">C:\ETL_Incoming\supply_batch_01.csv</DTS:VariableValue>
+    </DTS:Variable>
+  </DTS:Variables>
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\FEL_Loop_CSV_Files"
+      DTS:CreationName="STOCK:FOREACHLOOP"
+      DTS:Description="Foreach Loop Container"
+      DTS:DTSID="{143D327E-3316-4816-AF60-6695D400147A}"
+      DTS:ExecutableType="STOCK:FOREACHLOOP"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="FEL_Loop_CSV_Files">
+      <DTS:ForEachEnumerator
+        DTS:CreationName="Microsoft.ForEachFileEnumerator"
+        DTS:DTSID="{B80CFFD3-C9EE-411D-AF2E-E4222B88D5E5}"
+        DTS:ObjectName="{B80CFFD3-C9EE-411D-AF2E-E4222B88D5E5}">
+        <DTS:ObjectData>
+          <ForEachFileEnumeratorProperties>
+            <FEFEProperty
+              Folder="C:\ETL_Incoming" />
+            <FEFEProperty
+              FileSpec="*.csv" />
+            <FEFEProperty
+              FileNameRetrievalType="0" />
+            <FEFEProperty
+              Recurse="0" />
+          </ForEachFileEnumeratorProperties>
+        </DTS:ObjectData>
+      </DTS:ForEachEnumerator>
+      <DTS:Variables />
+      <DTS:Executables>
+        <DTS:Executable
+          DTS:refId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch"
+          DTS:CreationName="Microsoft.Pipeline"
+          DTS:Description="Data Flow Task"
+          DTS:DTSID="{E817D16E-9AA5-4FBE-A31F-D754414E6845}"
+          DTS:ExecutableType="Microsoft.Pipeline"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="DFT_Process_CSV_Batch"
+          DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <pipeline
+              version="1">
+              <components>
+                <component
+                  refId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\Aggregate"
+                  componentClassID="Microsoft.Aggregate"
+                  contactInfo="Aggregate;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;3"
+                  description="Aggregates data with functions such as Average, Sum, Count, Max, and Min. For example, group data to compute the sum of sales per product or the average visits per day."
+                  name="Aggregate"
+                  version="3">
+                  <properties>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the approximate number of group by keys that the aggregation produces. Low indicates 500,000 key values, Medium indicates 5 million key values, and High indicates more than 25 million key values. Unspecified indicates no KeyScale value is used."
+                      name="KeyScale"
+                      typeConverter="KeyScaleType">0</property>
+                    <property
+                      dataType="System.Null"
+                      description="Specifies the exact number of group by keys that the aggregation produces. If a KeyScale value is specified, the value in Keys takes precedence."
+                      name="Keys" />
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the approximate number of distinct values in a column that the aggregation counts distinctly. Low indicates 500,000 key values, Medium indicates 5 million key values, and High indicates more than 25 million key values. Unspecified indicates no CountDistinctScale value is used."
+                      name="CountDistinctScale"
+                      typeConverter="KeyScaleType">0</property>
+                    <property
+                      dataType="System.Null"
+                      description="Specifies the exact number of distinct values in a column that the aggregation counts distinctly. If a CountDistinctScale value is specified, the value in CountDistinctKeys takes precedence."
+                      name="CountDistinctKeys" />
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the percentage by which memory can be extended during the aggregation. Valid values are between 1 and 100."
+                      name="AutoExtendFactor">25</property>
+                  </properties>
+                  <inputs>
+                    <input
+                      refId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\Aggregate.Inputs[Aggregate Input 1]"
+                      name="Aggregate Input 1">
+                      <inputColumns>
+                        <inputColumn
+                          refId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\Aggregate.Inputs[Aggregate Input 1].Columns[CleanWarehouse]"
+                          cachedDataType="wstr"
+                          cachedLength="20"
+                          cachedName="CleanWarehouse"
+                          lineageId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\Union All.Outputs[Union All Output 1].Columns[CleanWarehouse]" />
+                        <inputColumn
+                          refId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\Aggregate.Inputs[Aggregate Input 1].Columns[NumQty]"
+                          cachedDataType="i4"
+                          cachedName="NumQty"
+                          lineageId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\Union All.Outputs[Union All Output 1].Columns[NumQty]" />
+                        <inputColumn
+                          refId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\Aggregate.Inputs[Aggregate Input 1].Columns[NumPrice]"
+                          cachedDataType="numeric"
+                          cachedName="NumPrice"
+                          cachedPrecision="18"
+                          cachedScale="2"
+                          lineageId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\Union All.Outputs[Union All Output 1].Columns[NumPrice]" />
+                      </inputColumns>
+                      <externalMetadataColumns />
+                    </input>
+                  </inputs>
+                  <outputs>
+                    <output
+                      refId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\Aggregate.Outputs[Aggregate Output 1]"
+                      name="Aggregate Output 1">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the approximate number of group by keys that the aggregation produces. Low indicates 500,000 key values, Medium indicates 5 million key values, and High indicates more than 25 million key values. Unspecified indicates no KeyScale value is used."
+                          name="KeyScale"
+                          typeConverter="KeyScaleType">0</property>
+                        <property
+                          dataType="System.Null"
+                          description="Specifies the exact number of group by keys that the aggregation produces. If a KeyScale value is specified, the value in Keys takes precedence."
+                          name="Keys" />
+                      </properties>
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\Aggregate.Outputs[Aggregate Output 1].Columns[CleanWarehouse]"
+                          dataType="wstr"
+                          length="20"
+                          lineageId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\Aggregate.Outputs[Aggregate Output 1].Columns[CleanWarehouse]"
+                          name="CleanWarehouse">
+                          <properties>
+                            <property
+                              containsID="true"
+                              dataType="System.Int32"
+                              description="Specifies the ID of the input column used in the aggregation."
+                              name="AggregationColumnId">#{Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\Union All.Outputs[Union All Output 1].Columns[CleanWarehouse]}</property>
+                            <property
+                              dataType="System.Int32"
+                              description="Specifies the type of aggregation."
+                              name="AggregationType"
+                              typeConverter="AggregationType">0</property>
+                            <property
+                              dataType="System.Int32"
+                              description="Indicates whether the column requires special handling because it may contain oversized data or it requires precision beyond a float data type."
+                              name="IsBig">1</property>
+                            <property
+                              dataType="System.Int32"
+                              description="Specifies the string comparison options."
+                              name="AggregationComparisonFlags">0</property>
+                          </properties>
+                        </outputColumn>
+                        <outputColumn
+                          refId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\Aggregate.Outputs[Aggregate Output 1].Columns[TotalQuantity]"
+                          dataType="i8"
+                          lineageId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\Aggregate.Outputs[Aggregate Output 1].Columns[TotalQuantity]"
+                          name="TotalQuantity">
+                          <properties>
+                            <property
+                              containsID="true"
+                              dataType="System.Int32"
+                              description="Specifies the ID of the input column used in the aggregation."
+                              name="AggregationColumnId">#{Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\Union All.Outputs[Union All Output 1].Columns[NumQty]}</property>
+                            <property
+                              dataType="System.Int32"
+                              description="Specifies the type of aggregation."
+                              name="AggregationType"
+                              typeConverter="AggregationType">4</property>
+                            <property
+                              dataType="System.Int32"
+                              description="Indicates whether the column requires special handling because it may contain oversized data or it requires precision beyond a float data type."
+                              name="IsBig">1</property>
+                            <property
+                              dataType="System.Int32"
+                              description="Specifies the string comparison options."
+                              name="AggregationComparisonFlags">0</property>
+                          </properties>
+                        </outputColumn>
+                        <outputColumn
+                          refId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\Aggregate.Outputs[Aggregate Output 1].Columns[TotalAmount]"
+                          dataType="numeric"
+                          lineageId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\Aggregate.Outputs[Aggregate Output 1].Columns[TotalAmount]"
+                          name="TotalAmount"
+                          precision="18"
+                          scale="2">
+                          <properties>
+                            <property
+                              containsID="true"
+                              dataType="System.Int32"
+                              description="Specifies the ID of the input column used in the aggregation."
+                              name="AggregationColumnId">#{Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\Union All.Outputs[Union All Output 1].Columns[NumPrice]}</property>
+                            <property
+                              dataType="System.Int32"
+                              description="Specifies the type of aggregation."
+                              name="AggregationType"
+                              typeConverter="AggregationType">4</property>
+                            <property
+                              dataType="System.Int32"
+                              description="Indicates whether the column requires special handling because it may contain oversized data or it requires precision beyond a float data type."
+                              name="IsBig">1</property>
+                            <property
+                              dataType="System.Int32"
+                              description="Specifies the string comparison options."
+                              name="AggregationComparisonFlags">0</property>
+                          </properties>
+                        </outputColumn>
+                        <outputColumn
+                          refId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\Aggregate.Outputs[Aggregate Output 1].Columns[BatchCount]"
+                          dataType="ui8"
+                          lineageId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\Aggregate.Outputs[Aggregate Output 1].Columns[BatchCount]"
+                          name="BatchCount">
+                          <properties>
+                            <property
+                              containsID="true"
+                              dataType="System.Int32"
+                              description="Specifies the ID of the input column used in the aggregation."
+                              name="AggregationColumnId">#{Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\Union All.Outputs[Union All Output 1].Columns[CleanWarehouse]}</property>
+                            <property
+                              dataType="System.Int32"
+                              description="Specifies the type of aggregation."
+                              name="AggregationType"
+                              typeConverter="AggregationType">1</property>
+                            <property
+                              dataType="System.Int32"
+                              description="Indicates whether the column requires special handling because it may contain oversized data or it requires precision beyond a float data type."
+                              name="IsBig">1</property>
+                            <property
+                              dataType="System.Int32"
+                              description="Specifies the string comparison options."
+                              name="AggregationComparisonFlags">0</property>
+                          </properties>
+                        </outputColumn>
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+                <component
+                  refId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\Conditional Split"
+                  componentClassID="Microsoft.ConditionalSplit"
+                  contactInfo="Conditional Split;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+                  description="Routes data rows to different outputs depending on the content of the data. Use conditions (SSIS expressions) to specify which rows are routed. For example, separate records that need to be cleaned from those that are ready to be loaded or route only a subset of records."
+                  name="Conditional Split"
+                  usesDispositions="true">
+                  <inputs>
+                    <input
+                      refId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\Conditional Split.Inputs[Conditional Split Input]"
+                      description="Input to the Conditional Split Transformation"
+                      name="Conditional Split Input">
+                      <inputColumns>
+                        <inputColumn
+                          refId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\Conditional Split.Inputs[Conditional Split Input].Columns[Quantity]"
+                          cachedCodepage="65001"
+                          cachedDataType="str"
+                          cachedLength="50"
+                          cachedName="Quantity"
+                          lineageId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\Flat File Source.Outputs[Flat File Source Output].Columns[Quantity]" />
+                        <inputColumn
+                          refId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\Conditional Split.Inputs[Conditional Split Input].Columns[UnitPrice]"
+                          cachedCodepage="65001"
+                          cachedDataType="str"
+                          cachedLength="50"
+                          cachedName="UnitPrice"
+                          lineageId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\Flat File Source.Outputs[Flat File Source Output].Columns[UnitPrice]" />
+                      </inputColumns>
+                      <externalMetadataColumns />
+                    </input>
+                  </inputs>
+                  <outputs>
+                    <output
+                      refId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\Conditional Split.Outputs[Valid_Rows]"
+                      description="Output 1 of the Conditional Split Transformation"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      exclusionGroup="1"
+                      name="Valid_Rows"
+                      synchronousInputId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\Conditional Split.Inputs[Conditional Split Input]"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Specifies the expression. This expression version uses lineage identifiers instead of column names."
+                          name="Expression">![ISNULL](#{Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\Flat File Source.Outputs[Flat File Source Output].Columns[Quantity]}) &amp;&amp; (DT_I4)#{Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\Flat File Source.Outputs[Flat File Source Output].Columns[Quantity]} &gt; 0 &amp;&amp; ![ISNULL](#{Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\Flat File Source.Outputs[Flat File Source Output].Columns[UnitPrice]}) &amp;&amp; [LEN]([TRIM]((DT_WSTR,50)#{Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\Flat File Source.Outputs[Flat File Source Output].Columns[UnitPrice]})) &gt; 0</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Specifies the friendly version of the expression. This expression version uses column names."
+                          expressionType="Notify"
+                          name="FriendlyExpression">!ISNULL(Quantity) &amp;&amp; (DT_I4)Quantity &gt; 0 &amp;&amp; !ISNULL(UnitPrice) &amp;&amp; LEN(TRIM((DT_WSTR,50)UnitPrice)) &gt; 0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the position of the condition in the list of conditions that the transformation evaluates. The evaluation order is from the lowest to the highest value."
+                          name="EvaluationOrder">0</property>
+                      </properties>
+                      <externalMetadataColumns />
+                    </output>
+                    <output
+                      refId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\Conditional Split.Outputs[Rejected_Rows]"
+                      description="Default Output of the Conditional Split Transformation"
+                      exclusionGroup="1"
+                      name="Rejected_Rows"
+                      synchronousInputId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\Conditional Split.Inputs[Conditional Split Input]">
+                      <properties>
+                        <property
+                          dataType="System.Boolean"
+                          name="IsDefaultOut">true</property>
+                      </properties>
+                      <externalMetadataColumns />
+                    </output>
+                    <output
+                      refId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\Conditional Split.Outputs[Conditional Split Error Output]"
+                      description="Error Output of the Conditional Split Transformation"
+                      exclusionGroup="1"
+                      isErrorOut="true"
+                      name="Conditional Split Error Output"
+                      synchronousInputId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\Conditional Split.Inputs[Conditional Split Input]">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\Conditional Split.Outputs[Conditional Split Error Output].Columns[ErrorCode]"
+                          dataType="i4"
+                          lineageId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\Conditional Split.Outputs[Conditional Split Error Output].Columns[ErrorCode]"
+                          name="ErrorCode"
+                          specialFlags="1" />
+                        <outputColumn
+                          refId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\Conditional Split.Outputs[Conditional Split Error Output].Columns[ErrorColumn]"
+                          dataType="i4"
+                          lineageId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\Conditional Split.Outputs[Conditional Split Error Output].Columns[ErrorColumn]"
+                          name="ErrorColumn"
+                          specialFlags="2" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+                <component
+                  refId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\Data Conversion"
+                  componentClassID="Microsoft.DataConvert"
+                  contactInfo="Data Conversion;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+                  description="Data Conversion"
+                  name="Data Conversion"
+                  usesDispositions="true">
+                  <inputs>
+                    <input
+                      refId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\Data Conversion.Inputs[Data Conversion Input]"
+                      name="Data Conversion Input">
+                      <inputColumns>
+                        <inputColumn
+                          refId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\Data Conversion.Inputs[Data Conversion Input].Columns[CleanWarehouse]"
+                          cachedDataType="wstr"
+                          cachedLength="20"
+                          cachedName="CleanWarehouse"
+                          lineageId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\Derived Column.Outputs[Derived Column Output].Columns[CleanWarehouse]" />
+                        <inputColumn
+                          refId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\Data Conversion.Inputs[Data Conversion Input].Columns[CleanProduct]"
+                          cachedDataType="wstr"
+                          cachedLength="50"
+                          cachedName="CleanProduct"
+                          lineageId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\Derived Column.Outputs[Derived Column Output].Columns[CleanProduct]" />
+                        <inputColumn
+                          refId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\Data Conversion.Inputs[Data Conversion Input].Columns[SourceFile]"
+                          cachedDataType="wstr"
+                          cachedLength="255"
+                          cachedName="SourceFile"
+                          lineageId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\Derived Column.Outputs[Derived Column Output].Columns[SourceFile]" />
+                        <inputColumn
+                          refId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\Data Conversion.Inputs[Data Conversion Input].Columns[ErrorReason]"
+                          cachedDataType="wstr"
+                          cachedLength="200"
+                          cachedName="ErrorReason"
+                          lineageId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\Derived Column.Outputs[Derived Column Output].Columns[ErrorReason]" />
+                      </inputColumns>
+                      <externalMetadataColumns />
+                    </input>
+                  </inputs>
+                  <outputs>
+                    <output
+                      refId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\Data Conversion.Outputs[Data Conversion Output]"
+                      exclusionGroup="1"
+                      name="Data Conversion Output"
+                      synchronousInputId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\Data Conversion.Inputs[Data Conversion Input]">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of CleanWarehouse]"
+                          dataType="wstr"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          length="50"
+                          lineageId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of CleanWarehouse]"
+                          name="Copy of CleanWarehouse"
+                          truncationRowDisposition="FailComponent">
+                          <properties>
+                            <property
+                              containsID="true"
+                              dataType="System.Int32"
+                              description="Specifies the input column used as the source of data for the conversion."
+                              name="SourceInputColumnLineageID">#{Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\Derived Column.Outputs[Derived Column Output].Columns[CleanWarehouse]}</property>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                              name="FastParse">false</property>
+                          </properties>
+                        </outputColumn>
+                        <outputColumn
+                          refId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of CleanProduct]"
+                          codePage="1251"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          length="50"
+                          lineageId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of CleanProduct]"
+                          name="Copy of CleanProduct"
+                          truncationRowDisposition="FailComponent">
+                          <properties>
+                            <property
+                              containsID="true"
+                              dataType="System.Int32"
+                              description="Specifies the input column used as the source of data for the conversion."
+                              name="SourceInputColumnLineageID">#{Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\Derived Column.Outputs[Derived Column Output].Columns[CleanProduct]}</property>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                              name="FastParse">false</property>
+                          </properties>
+                        </outputColumn>
+                        <outputColumn
+                          refId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of SourceFile]"
+                          dataType="wstr"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          length="100"
+                          lineageId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of SourceFile]"
+                          name="Copy of SourceFile"
+                          truncationRowDisposition="FailComponent">
+                          <properties>
+                            <property
+                              containsID="true"
+                              dataType="System.Int32"
+                              description="Specifies the input column used as the source of data for the conversion."
+                              name="SourceInputColumnLineageID">#{Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\Derived Column.Outputs[Derived Column Output].Columns[SourceFile]}</property>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                              name="FastParse">false</property>
+                          </properties>
+                        </outputColumn>
+                        <outputColumn
+                          refId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of ErrorReason]"
+                          dataType="wstr"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          length="200"
+                          lineageId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of ErrorReason]"
+                          name="Copy of ErrorReason"
+                          truncationRowDisposition="FailComponent">
+                          <properties>
+                            <property
+                              containsID="true"
+                              dataType="System.Int32"
+                              description="Specifies the input column used as the source of data for the conversion."
+                              name="SourceInputColumnLineageID">#{Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\Derived Column.Outputs[Derived Column Output].Columns[ErrorReason]}</property>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                              name="FastParse">false</property>
+                          </properties>
+                        </outputColumn>
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                    <output
+                      refId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\Data Conversion.Outputs[Data Conversion Error Output]"
+                      exclusionGroup="1"
+                      isErrorOut="true"
+                      name="Data Conversion Error Output"
+                      synchronousInputId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\Data Conversion.Inputs[Data Conversion Input]">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\Data Conversion.Outputs[Data Conversion Error Output].Columns[ErrorCode]"
+                          dataType="i4"
+                          lineageId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\Data Conversion.Outputs[Data Conversion Error Output].Columns[ErrorCode]"
+                          name="ErrorCode"
+                          specialFlags="1" />
+                        <outputColumn
+                          refId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\Data Conversion.Outputs[Data Conversion Error Output].Columns[ErrorColumn]"
+                          dataType="i4"
+                          lineageId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\Data Conversion.Outputs[Data Conversion Error Output].Columns[ErrorColumn]"
+                          name="ErrorColumn"
+                          specialFlags="2" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+                <component
+                  refId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\Data Conversion 1"
+                  componentClassID="Microsoft.DataConvert"
+                  contactInfo="Data Conversion;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+                  description="Data Conversion"
+                  name="Data Conversion 1"
+                  usesDispositions="true">
+                  <inputs>
+                    <input
+                      refId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\Data Conversion 1.Inputs[Data Conversion Input]"
+                      name="Data Conversion Input">
+                      <inputColumns>
+                        <inputColumn
+                          refId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\Data Conversion 1.Inputs[Data Conversion Input].Columns[Quantity]"
+                          cachedCodepage="65001"
+                          cachedDataType="str"
+                          cachedLength="50"
+                          cachedName="Quantity"
+                          lineageId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\Flat File Source.Outputs[Flat File Source Output].Columns[Quantity]" />
+                        <inputColumn
+                          refId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\Data Conversion 1.Inputs[Data Conversion Input].Columns[CleanUnitPrice]"
+                          cachedDataType="wstr"
+                          cachedLength="50"
+                          cachedName="CleanUnitPrice"
+                          lineageId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\Derived Column 1.Outputs[Derived Column Output].Columns[CleanUnitPrice]" />
+                      </inputColumns>
+                      <externalMetadataColumns />
+                    </input>
+                  </inputs>
+                  <outputs>
+                    <output
+                      refId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\Data Conversion 1.Outputs[Data Conversion Output]"
+                      exclusionGroup="1"
+                      name="Data Conversion Output"
+                      synchronousInputId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\Data Conversion 1.Inputs[Data Conversion Input]">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\Data Conversion 1.Outputs[Data Conversion Output].Columns[NumQty]"
+                          dataType="i4"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="IgnoreFailure"
+                          lineageId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\Data Conversion 1.Outputs[Data Conversion Output].Columns[NumQty]"
+                          name="NumQty"
+                          truncationRowDisposition="IgnoreFailure">
+                          <properties>
+                            <property
+                              containsID="true"
+                              dataType="System.Int32"
+                              description="Specifies the input column used as the source of data for the conversion."
+                              name="SourceInputColumnLineageID">#{Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\Flat File Source.Outputs[Flat File Source Output].Columns[Quantity]}</property>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                              name="FastParse">false</property>
+                          </properties>
+                        </outputColumn>
+                        <outputColumn
+                          refId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\Data Conversion 1.Outputs[Data Conversion Output].Columns[NumPrice]"
+                          dataType="numeric"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="IgnoreFailure"
+                          lineageId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\Data Conversion 1.Outputs[Data Conversion Output].Columns[NumPrice]"
+                          name="NumPrice"
+                          precision="18"
+                          scale="2"
+                          truncationRowDisposition="IgnoreFailure">
+                          <properties>
+                            <property
+                              containsID="true"
+                              dataType="System.Int32"
+                              description="Specifies the input column used as the source of data for the conversion."
+                              name="SourceInputColumnLineageID">#{Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\Derived Column 1.Outputs[Derived Column Output].Columns[CleanUnitPrice]}</property>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                              name="FastParse">false</property>
+                          </properties>
+                        </outputColumn>
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                    <output
+                      refId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\Data Conversion 1.Outputs[Data Conversion Error Output]"
+                      exclusionGroup="1"
+                      isErrorOut="true"
+                      name="Data Conversion Error Output"
+                      synchronousInputId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\Data Conversion 1.Inputs[Data Conversion Input]">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\Data Conversion 1.Outputs[Data Conversion Error Output].Columns[ErrorCode]"
+                          dataType="i4"
+                          lineageId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\Data Conversion 1.Outputs[Data Conversion Error Output].Columns[ErrorCode]"
+                          name="ErrorCode"
+                          specialFlags="1" />
+                        <outputColumn
+                          refId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\Data Conversion 1.Outputs[Data Conversion Error Output].Columns[ErrorColumn]"
+                          dataType="i4"
+                          lineageId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\Data Conversion 1.Outputs[Data Conversion Error Output].Columns[ErrorColumn]"
+                          name="ErrorColumn"
+                          specialFlags="2" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+                <component
+                  refId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\Derived Column"
+                  componentClassID="Microsoft.DerivedColumn"
+                  contactInfo="Derived Column;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+                  description="Creates new column values by applying expressions to transformation input columns. Create new columns or overwrite existing ones. For example, concatenate the values from the 'first name' and 'last name' column to make a 'full name' column."
+                  name="Derived Column"
+                  usesDispositions="true">
+                  <inputs>
+                    <input
+                      refId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\Derived Column.Inputs[Derived Column Input]"
+                      description="Input to the Derived Column Transformation"
+                      name="Derived Column Input">
+                      <inputColumns>
+                        <inputColumn
+                          refId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\Derived Column.Inputs[Derived Column Input].Columns[WarehouseCode]"
+                          cachedCodepage="65001"
+                          cachedDataType="str"
+                          cachedLength="50"
+                          cachedName="WarehouseCode"
+                          lineageId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\Flat File Source.Outputs[Flat File Source Output].Columns[WarehouseCode]" />
+                        <inputColumn
+                          refId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\Derived Column.Inputs[Derived Column Input].Columns[ProductCode]"
+                          cachedCodepage="65001"
+                          cachedDataType="str"
+                          cachedLength="50"
+                          cachedName="ProductCode"
+                          lineageId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\Flat File Source.Outputs[Flat File Source Output].Columns[ProductCode]" />
+                      </inputColumns>
+                      <externalMetadataColumns />
+                    </input>
+                  </inputs>
+                  <outputs>
+                    <output
+                      refId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\Derived Column.Outputs[Derived Column Output]"
+                      description="Default Output of the Derived Column Transformation"
+                      exclusionGroup="1"
+                      name="Derived Column Output"
+                      synchronousInputId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\Derived Column.Inputs[Derived Column Input]">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\Derived Column.Outputs[Derived Column Output].Columns[CleanWarehouse]"
+                          dataType="wstr"
+                          errorOrTruncationOperation="Computation"
+                          errorRowDisposition="FailComponent"
+                          length="20"
+                          lineageId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\Derived Column.Outputs[Derived Column Output].Columns[CleanWarehouse]"
+                          name="CleanWarehouse"
+                          truncationRowDisposition="FailComponent">
+                          <properties>
+                            <property
+                              containsID="true"
+                              dataType="System.String"
+                              description="Derived Column Expression"
+                              name="Expression">(DT_WSTR,20)[TRIM](#{Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\Flat File Source.Outputs[Flat File Source Output].Columns[WarehouseCode]})</property>
+                            <property
+                              containsID="true"
+                              dataType="System.String"
+                              description="Derived Column Friendly Expression"
+                              expressionType="Notify"
+                              name="FriendlyExpression">(DT_WSTR,20)TRIM(WarehouseCode)</property>
+                          </properties>
+                        </outputColumn>
+                        <outputColumn
+                          refId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\Derived Column.Outputs[Derived Column Output].Columns[CleanProduct]"
+                          dataType="wstr"
+                          errorOrTruncationOperation="Computation"
+                          errorRowDisposition="FailComponent"
+                          length="50"
+                          lineageId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\Derived Column.Outputs[Derived Column Output].Columns[CleanProduct]"
+                          name="CleanProduct"
+                          truncationRowDisposition="FailComponent">
+                          <properties>
+                            <property
+                              containsID="true"
+                              dataType="System.String"
+                              description="Derived Column Expression"
+                              name="Expression">(DT_WSTR,50)[TRIM](#{Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\Flat File Source.Outputs[Flat File Source Output].Columns[ProductCode]})</property>
+                            <property
+                              containsID="true"
+                              dataType="System.String"
+                              description="Derived Column Friendly Expression"
+                              expressionType="Notify"
+                              name="FriendlyExpression">(DT_WSTR,50)TRIM(ProductCode)</property>
+                          </properties>
+                        </outputColumn>
+                        <outputColumn
+                          refId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\Derived Column.Outputs[Derived Column Output].Columns[SourceFile]"
+                          dataType="wstr"
+                          errorOrTruncationOperation="Computation"
+                          errorRowDisposition="FailComponent"
+                          length="255"
+                          lineageId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\Derived Column.Outputs[Derived Column Output].Columns[SourceFile]"
+                          name="SourceFile"
+                          truncationRowDisposition="FailComponent">
+                          <properties>
+                            <property
+                              containsID="true"
+                              dataType="System.String"
+                              description="Derived Column Expression"
+                              name="Expression">(DT_WSTR,255)@[User::CurrentFilePath]</property>
+                            <property
+                              containsID="true"
+                              dataType="System.String"
+                              description="Derived Column Friendly Expression"
+                              expressionType="Notify"
+                              name="FriendlyExpression">(DT_WSTR,255)@[User::CurrentFilePath]</property>
+                          </properties>
+                        </outputColumn>
+                        <outputColumn
+                          refId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\Derived Column.Outputs[Derived Column Output].Columns[ErrorReason]"
+                          dataType="wstr"
+                          errorOrTruncationOperation="Computation"
+                          errorRowDisposition="FailComponent"
+                          length="200"
+                          lineageId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\Derived Column.Outputs[Derived Column Output].Columns[ErrorReason]"
+                          name="ErrorReason"
+                          truncationRowDisposition="FailComponent">
+                          <properties>
+                            <property
+                              containsID="true"
+                              dataType="System.String"
+                              description="Derived Column Expression"
+                              name="Expression">(DT_WSTR,200)"Invalid Quantity or NULL UnitPrice"</property>
+                            <property
+                              containsID="true"
+                              dataType="System.String"
+                              description="Derived Column Friendly Expression"
+                              expressionType="Notify"
+                              name="FriendlyExpression">(DT_WSTR,200)"Invalid Quantity or NULL UnitPrice"</property>
+                          </properties>
+                        </outputColumn>
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                    <output
+                      refId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\Derived Column.Outputs[Derived Column Error Output]"
+                      description="Error Output of the Derived Column Transformation"
+                      exclusionGroup="1"
+                      isErrorOut="true"
+                      name="Derived Column Error Output"
+                      synchronousInputId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\Derived Column.Inputs[Derived Column Input]">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\Derived Column.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                          dataType="i4"
+                          lineageId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\Derived Column.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                          name="ErrorCode"
+                          specialFlags="1" />
+                        <outputColumn
+                          refId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\Derived Column.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                          dataType="i4"
+                          lineageId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\Derived Column.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                          name="ErrorColumn"
+                          specialFlags="2" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+                <component
+                  refId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\Derived Column 1"
+                  componentClassID="Microsoft.DerivedColumn"
+                  contactInfo="Derived Column;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+                  description="Creates new column values by applying expressions to transformation input columns. Create new columns or overwrite existing ones. For example, concatenate the values from the 'first name' and 'last name' column to make a 'full name' column."
+                  name="Derived Column 1"
+                  usesDispositions="true">
+                  <inputs>
+                    <input
+                      refId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\Derived Column 1.Inputs[Derived Column Input]"
+                      description="Input to the Derived Column Transformation"
+                      name="Derived Column Input">
+                      <inputColumns>
+                        <inputColumn
+                          refId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\Derived Column 1.Inputs[Derived Column Input].Columns[UnitPrice]"
+                          cachedCodepage="65001"
+                          cachedDataType="str"
+                          cachedLength="50"
+                          cachedName="UnitPrice"
+                          lineageId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\Flat File Source.Outputs[Flat File Source Output].Columns[UnitPrice]" />
+                      </inputColumns>
+                      <externalMetadataColumns />
+                    </input>
+                  </inputs>
+                  <outputs>
+                    <output
+                      refId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\Derived Column 1.Outputs[Derived Column Output]"
+                      description="Default Output of the Derived Column Transformation"
+                      exclusionGroup="1"
+                      name="Derived Column Output"
+                      synchronousInputId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\Derived Column 1.Inputs[Derived Column Input]">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\Derived Column 1.Outputs[Derived Column Output].Columns[CleanUnitPrice]"
+                          dataType="wstr"
+                          errorOrTruncationOperation="Computation"
+                          errorRowDisposition="FailComponent"
+                          length="50"
+                          lineageId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\Derived Column 1.Outputs[Derived Column Output].Columns[CleanUnitPrice]"
+                          name="CleanUnitPrice"
+                          truncationRowDisposition="FailComponent">
+                          <properties>
+                            <property
+                              containsID="true"
+                              dataType="System.String"
+                              description="Derived Column Expression"
+                              name="Expression">[TRIM]([REPLACE](#{Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\Flat File Source.Outputs[Flat File Source Output].Columns[UnitPrice]},".",","))</property>
+                            <property
+                              containsID="true"
+                              dataType="System.String"
+                              description="Derived Column Friendly Expression"
+                              expressionType="Notify"
+                              name="FriendlyExpression">TRIM(REPLACE(UnitPrice,".",","))</property>
+                          </properties>
+                        </outputColumn>
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                    <output
+                      refId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\Derived Column 1.Outputs[Derived Column Error Output]"
+                      description="Error Output of the Derived Column Transformation"
+                      exclusionGroup="1"
+                      isErrorOut="true"
+                      name="Derived Column Error Output"
+                      synchronousInputId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\Derived Column 1.Inputs[Derived Column Input]">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\Derived Column 1.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                          dataType="i4"
+                          lineageId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\Derived Column 1.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                          name="ErrorCode"
+                          specialFlags="1" />
+                        <outputColumn
+                          refId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\Derived Column 1.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                          dataType="i4"
+                          lineageId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\Derived Column 1.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                          name="ErrorColumn"
+                          specialFlags="2" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+                <component
+                  refId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\DST_ErrorRows"
+                  componentClassID="Microsoft.OLEDBDestination"
+                  contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+                  description="OLE DB Destination"
+                  name="DST_ErrorRows"
+                  usesDispositions="true"
+                  version="4">
+                  <properties>
+                    <property
+                      dataType="System.Int32"
+                      description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                      name="CommandTimeout">0</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the name of the database object used to open a rowset."
+                      name="OpenRowset">[dbo].[ETLErrorRows]</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the variable that contains the name of the database object used to open a rowset."
+                      name="OpenRowsetVariable"></property>
+                    <property
+                      dataType="System.String"
+                      description="The SQL command to be executed."
+                      name="SqlCommand"
+                      UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the column code page to use when code page information is unavailable from the data source."
+                      name="DefaultCodePage">1251</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Forces the use of the DefaultCodePage property value when describing character data."
+                      name="AlwaysUseDefaultCodePage">false</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the mode used to access the database."
+                      name="AccessMode"
+                      typeConverter="AccessMode">0</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                      name="FastLoadKeepIdentity">false</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                      name="FastLoadKeepNulls">false</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                      name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                      name="FastLoadMaxInsertCommitSize">2147483647</property>
+                  </properties>
+                  <connections>
+                    <connection
+                      refId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\DST_ErrorRows.Connections[OleDbConnection]"
+                      connectionManagerID="Package.ConnectionManagers[localhost.InventoryManagement_DW]"
+                      connectionManagerRefId="Package.ConnectionManagers[localhost.InventoryManagement_DW]"
+                      description="The OLE DB runtime connection used to access the database."
+                      name="OleDbConnection" />
+                  </connections>
+                  <inputs>
+                    <input
+                      refId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\DST_ErrorRows.Inputs[OLE DB Destination Input]"
+                      errorOrTruncationOperation="Insert"
+                      errorRowDisposition="FailComponent"
+                      hasSideEffects="true"
+                      name="OLE DB Destination Input">
+                      <inputColumns>
+                        <inputColumn
+                          refId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\DST_ErrorRows.Inputs[OLE DB Destination Input].Columns[Copy of SourceFile]"
+                          cachedDataType="wstr"
+                          cachedLength="100"
+                          cachedName="Copy of SourceFile"
+                          externalMetadataColumnId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\DST_ErrorRows.Inputs[OLE DB Destination Input].ExternalColumns[PackageName]"
+                          lineageId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of SourceFile]" />
+                        <inputColumn
+                          refId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\DST_ErrorRows.Inputs[OLE DB Destination Input].Columns[Copy of CleanWarehouse]"
+                          cachedDataType="wstr"
+                          cachedLength="50"
+                          cachedName="Copy of CleanWarehouse"
+                          externalMetadataColumnId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\DST_ErrorRows.Inputs[OLE DB Destination Input].ExternalColumns[TaskName]"
+                          lineageId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of CleanWarehouse]" />
+                        <inputColumn
+                          refId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\DST_ErrorRows.Inputs[OLE DB Destination Input].Columns[Copy of CleanProduct]"
+                          cachedCodepage="1251"
+                          cachedDataType="str"
+                          cachedLength="50"
+                          cachedName="Copy of CleanProduct"
+                          externalMetadataColumnId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\DST_ErrorRows.Inputs[OLE DB Destination Input].ExternalColumns[SourceRecordID]"
+                          lineageId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of CleanProduct]" />
+                        <inputColumn
+                          refId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\DST_ErrorRows.Inputs[OLE DB Destination Input].Columns[Copy of ErrorReason]"
+                          cachedDataType="wstr"
+                          cachedLength="200"
+                          cachedName="Copy of ErrorReason"
+                          externalMetadataColumnId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\DST_ErrorRows.Inputs[OLE DB Destination Input].ExternalColumns[ErrorDescription]"
+                          lineageId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of ErrorReason]" />
+                      </inputColumns>
+                      <externalMetadataColumns
+                        isUsed="True">
+                        <externalMetadataColumn
+                          refId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\DST_ErrorRows.Inputs[OLE DB Destination Input].ExternalColumns[ErrorID]"
+                          dataType="i8"
+                          name="ErrorID" />
+                        <externalMetadataColumn
+                          refId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\DST_ErrorRows.Inputs[OLE DB Destination Input].ExternalColumns[PackageName]"
+                          dataType="wstr"
+                          length="100"
+                          name="PackageName" />
+                        <externalMetadataColumn
+                          refId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\DST_ErrorRows.Inputs[OLE DB Destination Input].ExternalColumns[TaskName]"
+                          dataType="wstr"
+                          length="100"
+                          name="TaskName" />
+                        <externalMetadataColumn
+                          refId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\DST_ErrorRows.Inputs[OLE DB Destination Input].ExternalColumns[SourceRecordID]"
+                          codePage="1251"
+                          dataType="str"
+                          length="50"
+                          name="SourceRecordID" />
+                        <externalMetadataColumn
+                          refId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\DST_ErrorRows.Inputs[OLE DB Destination Input].ExternalColumns[ErrorDescription]"
+                          dataType="wstr"
+                          length="500"
+                          name="ErrorDescription" />
+                        <externalMetadataColumn
+                          refId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\DST_ErrorRows.Inputs[OLE DB Destination Input].ExternalColumns[LoggedAt]"
+                          dataType="dbTimeStamp2"
+                          name="LoggedAt" />
+                      </externalMetadataColumns>
+                    </input>
+                  </inputs>
+                  <outputs>
+                    <output
+                      refId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\DST_ErrorRows.Outputs[OLE DB Destination Error Output]"
+                      exclusionGroup="1"
+                      isErrorOut="true"
+                      name="OLE DB Destination Error Output"
+                      synchronousInputId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\DST_ErrorRows.Inputs[OLE DB Destination Input]">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\DST_ErrorRows.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                          dataType="i4"
+                          lineageId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\DST_ErrorRows.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                          name="ErrorCode"
+                          specialFlags="1" />
+                        <outputColumn
+                          refId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\DST_ErrorRows.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                          dataType="i4"
+                          lineageId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\DST_ErrorRows.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                          name="ErrorColumn"
+                          specialFlags="2" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+                <component
+                  refId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\Flat File Source"
+                  componentClassID="Microsoft.FlatFileSource"
+                  contactInfo="Flat File Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;1"
+                  description="Flat File Source"
+                  localeId="1058"
+                  name="Flat File Source"
+                  usesDispositions="true"
+                  version="1">
+                  <properties>
+                    <property
+                      dataType="System.Boolean"
+                      description="Specifies whether zero-length columns are treated as null."
+                      name="RetainNulls">false</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the name of an output column containing the file name. If no name is specified, no output column containing the file name will be generated."
+                      name="FileNameColumnName"></property>
+                  </properties>
+                  <connections>
+                    <connection
+                      refId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\Flat File Source.Connections[FlatFileConnection]"
+                      connectionManagerID="Package.ConnectionManagers[FF_IncomingCSV]"
+                      connectionManagerRefId="Package.ConnectionManagers[FF_IncomingCSV]"
+                      name="FlatFileConnection" />
+                  </connections>
+                  <outputs>
+                    <output
+                      refId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\Flat File Source.Outputs[Flat File Source Output]"
+                      name="Flat File Source Output">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\Flat File Source.Outputs[Flat File Source Output].Columns[WarehouseCode]"
+                          codePage="65001"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[WarehouseCode]"
+                          length="50"
+                          lineageId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\Flat File Source.Outputs[Flat File Source Output].Columns[WarehouseCode]"
+                          name="WarehouseCode"
+                          truncationRowDisposition="FailComponent">
+                          <properties>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                              name="FastParse">false</property>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indicates whether the data is in binary format."
+                              name="UseBinaryFormat">false</property>
+                          </properties>
+                        </outputColumn>
+                        <outputColumn
+                          refId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\Flat File Source.Outputs[Flat File Source Output].Columns[ProductCode]"
+                          codePage="65001"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[ProductCode]"
+                          length="50"
+                          lineageId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\Flat File Source.Outputs[Flat File Source Output].Columns[ProductCode]"
+                          name="ProductCode"
+                          truncationRowDisposition="FailComponent">
+                          <properties>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                              name="FastParse">false</property>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indicates whether the data is in binary format."
+                              name="UseBinaryFormat">false</property>
+                          </properties>
+                        </outputColumn>
+                        <outputColumn
+                          refId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\Flat File Source.Outputs[Flat File Source Output].Columns[Quantity]"
+                          codePage="65001"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[Quantity]"
+                          length="50"
+                          lineageId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\Flat File Source.Outputs[Flat File Source Output].Columns[Quantity]"
+                          name="Quantity"
+                          truncationRowDisposition="FailComponent">
+                          <properties>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                              name="FastParse">false</property>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indicates whether the data is in binary format."
+                              name="UseBinaryFormat">false</property>
+                          </properties>
+                        </outputColumn>
+                        <outputColumn
+                          refId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\Flat File Source.Outputs[Flat File Source Output].Columns[UnitPrice]"
+                          codePage="65001"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[UnitPrice]"
+                          length="50"
+                          lineageId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\Flat File Source.Outputs[Flat File Source Output].Columns[UnitPrice]"
+                          name="UnitPrice"
+                          truncationRowDisposition="FailComponent">
+                          <properties>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                              name="FastParse">false</property>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indicates whether the data is in binary format."
+                              name="UseBinaryFormat">false</property>
+                          </properties>
+                        </outputColumn>
+                      </outputColumns>
+                      <externalMetadataColumns
+                        isUsed="True">
+                        <externalMetadataColumn
+                          refId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[WarehouseCode]"
+                          codePage="65001"
+                          dataType="str"
+                          length="50"
+                          name="WarehouseCode" />
+                        <externalMetadataColumn
+                          refId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[ProductCode]"
+                          codePage="65001"
+                          dataType="str"
+                          length="50"
+                          name="ProductCode" />
+                        <externalMetadataColumn
+                          refId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[Quantity]"
+                          codePage="65001"
+                          dataType="str"
+                          length="50"
+                          name="Quantity" />
+                        <externalMetadataColumn
+                          refId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[UnitPrice]"
+                          codePage="65001"
+                          dataType="str"
+                          length="50"
+                          name="UnitPrice" />
+                      </externalMetadataColumns>
+                    </output>
+                    <output
+                      refId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\Flat File Source.Outputs[Flat File Source Error Output]"
+                      isErrorOut="true"
+                      name="Flat File Source Error Output">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\Flat File Source.Outputs[Flat File Source Error Output].Columns[Flat File Source Error Output Column]"
+                          codePage="65001"
+                          dataType="text"
+                          description="Flat File Source Error Output Column"
+                          lineageId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\Flat File Source.Outputs[Flat File Source Error Output].Columns[Flat File Source Error Output Column]"
+                          name="Flat File Source Error Output Column" />
+                        <outputColumn
+                          refId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\Flat File Source.Outputs[Flat File Source Error Output].Columns[ErrorCode]"
+                          dataType="i4"
+                          lineageId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\Flat File Source.Outputs[Flat File Source Error Output].Columns[ErrorCode]"
+                          name="ErrorCode"
+                          specialFlags="1" />
+                        <outputColumn
+                          refId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\Flat File Source.Outputs[Flat File Source Error Output].Columns[ErrorColumn]"
+                          dataType="i4"
+                          lineageId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\Flat File Source.Outputs[Flat File Source Error Output].Columns[ErrorColumn]"
+                          name="ErrorColumn"
+                          specialFlags="2" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+                <component
+                  refId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\OLE DB Destination"
+                  componentClassID="Microsoft.OLEDBDestination"
+                  contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+                  description="OLE DB Destination"
+                  name="OLE DB Destination"
+                  usesDispositions="true"
+                  version="4">
+                  <properties>
+                    <property
+                      dataType="System.Int32"
+                      description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                      name="CommandTimeout">0</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the name of the database object used to open a rowset."
+                      name="OpenRowset">[dbo].[FactWarehouseSummary]</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the variable that contains the name of the database object used to open a rowset."
+                      name="OpenRowsetVariable"></property>
+                    <property
+                      dataType="System.String"
+                      description="The SQL command to be executed."
+                      name="SqlCommand"
+                      UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the column code page to use when code page information is unavailable from the data source."
+                      name="DefaultCodePage">1251</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Forces the use of the DefaultCodePage property value when describing character data."
+                      name="AlwaysUseDefaultCodePage">false</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the mode used to access the database."
+                      name="AccessMode"
+                      typeConverter="AccessMode">3</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                      name="FastLoadKeepIdentity">false</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                      name="FastLoadKeepNulls">false</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                      name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                      name="FastLoadMaxInsertCommitSize">2147483647</property>
+                  </properties>
+                  <connections>
+                    <connection
+                      refId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\OLE DB Destination.Connections[OleDbConnection]"
+                      connectionManagerID="Package.ConnectionManagers[localhost.InventoryManagement_DW]"
+                      connectionManagerRefId="Package.ConnectionManagers[localhost.InventoryManagement_DW]"
+                      description="The OLE DB runtime connection used to access the database."
+                      name="OleDbConnection" />
+                  </connections>
+                  <inputs>
+                    <input
+                      refId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\OLE DB Destination.Inputs[OLE DB Destination Input]"
+                      errorOrTruncationOperation="Insert"
+                      errorRowDisposition="FailComponent"
+                      hasSideEffects="true"
+                      name="OLE DB Destination Input">
+                      <inputColumns>
+                        <inputColumn
+                          refId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[TotalQuantity]"
+                          cachedDataType="i8"
+                          cachedName="TotalQuantity"
+                          externalMetadataColumnId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[TotalQuantity]"
+                          lineageId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\Aggregate.Outputs[Aggregate Output 1].Columns[TotalQuantity]" />
+                        <inputColumn
+                          refId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[TotalAmount]"
+                          cachedDataType="numeric"
+                          cachedName="TotalAmount"
+                          cachedPrecision="18"
+                          cachedScale="2"
+                          externalMetadataColumnId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[TotalAmount]"
+                          lineageId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\Aggregate.Outputs[Aggregate Output 1].Columns[TotalAmount]" />
+                        <inputColumn
+                          refId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[BatchCount]"
+                          cachedDataType="ui8"
+                          cachedName="BatchCount"
+                          externalMetadataColumnId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[BatchCount]"
+                          lineageId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\Aggregate.Outputs[Aggregate Output 1].Columns[BatchCount]" />
+                        <inputColumn
+                          refId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[CleanWarehouse]"
+                          cachedDataType="wstr"
+                          cachedLength="20"
+                          cachedName="CleanWarehouse"
+                          externalMetadataColumnId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[WarehouseCode]"
+                          lineageId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\Aggregate.Outputs[Aggregate Output 1].Columns[CleanWarehouse]" />
+                      </inputColumns>
+                      <externalMetadataColumns
+                        isUsed="True">
+                        <externalMetadataColumn
+                          refId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[SummaryID]"
+                          dataType="i4"
+                          name="SummaryID" />
+                        <externalMetadataColumn
+                          refId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[WarehouseCode]"
+                          dataType="wstr"
+                          length="20"
+                          name="WarehouseCode" />
+                        <externalMetadataColumn
+                          refId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[TotalQuantity]"
+                          dataType="i4"
+                          name="TotalQuantity" />
+                        <externalMetadataColumn
+                          refId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[TotalAmount]"
+                          dataType="numeric"
+                          name="TotalAmount"
+                          precision="18"
+                          scale="2" />
+                        <externalMetadataColumn
+                          refId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[BatchCount]"
+                          dataType="i4"
+                          name="BatchCount" />
+                        <externalMetadataColumn
+                          refId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[LoadedAt]"
+                          dataType="dbTimeStamp2"
+                          name="LoadedAt"
+                          scale="7" />
+                      </externalMetadataColumns>
+                    </input>
+                  </inputs>
+                  <outputs>
+                    <output
+                      refId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\OLE DB Destination.Outputs[OLE DB Destination Error Output]"
+                      exclusionGroup="1"
+                      isErrorOut="true"
+                      name="OLE DB Destination Error Output"
+                      synchronousInputId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\OLE DB Destination.Inputs[OLE DB Destination Input]">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                          dataType="i4"
+                          lineageId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                          name="ErrorCode"
+                          specialFlags="1" />
+                        <outputColumn
+                          refId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                          dataType="i4"
+                          lineageId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                          name="ErrorColumn"
+                          specialFlags="2" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+                <component
+                  refId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\OLE DB Source"
+                  componentClassID="Microsoft.OLEDBSource"
+                  contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+                  description="OLE DB Source"
+                  name="OLE DB Source"
+                  usesDispositions="true"
+                  version="7">
+                  <properties>
+                    <property
+                      dataType="System.Int32"
+                      description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                      name="CommandTimeout">0</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the name of the database object used to open a rowset."
+                      name="OpenRowset"></property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the variable that contains the name of the database object used to open a rowset."
+                      name="OpenRowsetVariable"></property>
+                    <property
+                      dataType="System.String"
+                      description="The SQL command to be executed."
+                      name="SqlCommand"
+                      UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">SELECT TOP 100
+    CAST(w.WarehouseID AS NVARCHAR(20)) AS CleanWarehouse,
+    f.Quantity AS NumQty,
+    CAST(f.UnitPrice AS NUMERIC(18,2)) AS NumPrice
+FROM dbo.FactInventoryOperations f
+JOIN dbo.DimWarehouse w ON f.WarehouseKey = w.WarehouseKey;</property>
+                    <property
+                      dataType="System.String"
+                      description="The variable that contains the SQL command to be executed."
+                      name="SqlCommandVariable"></property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the column code page to use when code page information is unavailable from the data source."
+                      name="DefaultCodePage">1251</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Forces the use of the DefaultCodePage property value when describing character data."
+                      name="AlwaysUseDefaultCodePage">false</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the mode used to access the database."
+                      name="AccessMode"
+                      typeConverter="AccessMode">2</property>
+                    <property
+                      dataType="System.String"
+                      description="The mappings between the parameters in the SQL command and variables."
+                      name="ParameterMapping"></property>
+                  </properties>
+                  <connections>
+                    <connection
+                      refId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\OLE DB Source.Connections[OleDbConnection]"
+                      connectionManagerID="Package.ConnectionManagers[localhost.InventoryManagement_DW]"
+                      connectionManagerRefId="Package.ConnectionManagers[localhost.InventoryManagement_DW]"
+                      description="The OLE DB runtime connection used to access the database."
+                      name="OleDbConnection" />
+                  </connections>
+                  <outputs>
+                    <output
+                      refId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\OLE DB Source.Outputs[OLE DB Source Output]"
+                      name="OLE DB Source Output">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\OLE DB Source.Outputs[OLE DB Source Output].Columns[CleanWarehouse]"
+                          dataType="wstr"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[CleanWarehouse]"
+                          length="20"
+                          lineageId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\OLE DB Source.Outputs[OLE DB Source Output].Columns[CleanWarehouse]"
+                          name="CleanWarehouse"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\OLE DB Source.Outputs[OLE DB Source Output].Columns[NumQty]"
+                          dataType="numeric"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[NumQty]"
+                          lineageId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\OLE DB Source.Outputs[OLE DB Source Output].Columns[NumQty]"
+                          name="NumQty"
+                          precision="12"
+                          scale="3"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\OLE DB Source.Outputs[OLE DB Source Output].Columns[NumPrice]"
+                          dataType="numeric"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[NumPrice]"
+                          lineageId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\OLE DB Source.Outputs[OLE DB Source Output].Columns[NumPrice]"
+                          name="NumPrice"
+                          precision="18"
+                          scale="2"
+                          truncationRowDisposition="FailComponent" />
+                      </outputColumns>
+                      <externalMetadataColumns
+                        isUsed="True">
+                        <externalMetadataColumn
+                          refId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[CleanWarehouse]"
+                          dataType="wstr"
+                          length="20"
+                          name="CleanWarehouse" />
+                        <externalMetadataColumn
+                          refId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[NumQty]"
+                          dataType="numeric"
+                          name="NumQty"
+                          precision="12"
+                          scale="3" />
+                        <externalMetadataColumn
+                          refId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[NumPrice]"
+                          dataType="numeric"
+                          name="NumPrice"
+                          precision="18"
+                          scale="2" />
+                      </externalMetadataColumns>
+                    </output>
+                    <output
+                      refId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\OLE DB Source.Outputs[OLE DB Source Error Output]"
+                      isErrorOut="true"
+                      name="OLE DB Source Error Output">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[CleanWarehouse]"
+                          dataType="wstr"
+                          length="20"
+                          lineageId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[CleanWarehouse]"
+                          name="CleanWarehouse" />
+                        <outputColumn
+                          refId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[NumQty]"
+                          dataType="numeric"
+                          lineageId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[NumQty]"
+                          name="NumQty"
+                          precision="12"
+                          scale="3" />
+                        <outputColumn
+                          refId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[NumPrice]"
+                          dataType="numeric"
+                          lineageId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[NumPrice]"
+                          name="NumPrice"
+                          precision="18"
+                          scale="2" />
+                        <outputColumn
+                          refId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                          dataType="i4"
+                          lineageId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                          name="ErrorCode"
+                          specialFlags="1" />
+                        <outputColumn
+                          refId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                          dataType="i4"
+                          lineageId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                          name="ErrorColumn"
+                          specialFlags="2" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+                <component
+                  refId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\Union All"
+                  componentClassID="Microsoft.UnionAll"
+                  contactInfo="Union All;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;1"
+                  description="Combines rows from multiple data flows without sorting. For example, add rows back to a data flow after correction of errors. If sorting is important, we recommend using the Merge transformation."
+                  name="Union All"
+                  version="1">
+                  <inputs>
+                    <input
+                      refId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\Union All.Inputs[Union All Input 1]"
+                      name="Union All Input 1">
+                      <inputColumns>
+                        <inputColumn
+                          refId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\Union All.Inputs[Union All Input 1].Columns[WarehouseCode]"
+                          cachedCodepage="65001"
+                          cachedDataType="str"
+                          cachedLength="50"
+                          cachedName="WarehouseCode"
+                          lineageId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\Flat File Source.Outputs[Flat File Source Output].Columns[WarehouseCode]">
+                          <properties>
+                            <property
+                              containsID="true"
+                              dataType="System.Int32"
+                              description="Output column lineage ID"
+                              name="OutputColumnLineageID">#{Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\Union All.Outputs[Union All Output 1].Columns[WarehouseCode]}</property>
+                          </properties>
+                        </inputColumn>
+                        <inputColumn
+                          refId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\Union All.Inputs[Union All Input 1].Columns[ProductCode]"
+                          cachedCodepage="65001"
+                          cachedDataType="str"
+                          cachedLength="50"
+                          cachedName="ProductCode"
+                          lineageId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\Flat File Source.Outputs[Flat File Source Output].Columns[ProductCode]">
+                          <properties>
+                            <property
+                              containsID="true"
+                              dataType="System.Int32"
+                              description="Output column lineage ID"
+                              name="OutputColumnLineageID">#{Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\Union All.Outputs[Union All Output 1].Columns[ProductCode]}</property>
+                          </properties>
+                        </inputColumn>
+                        <inputColumn
+                          refId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\Union All.Inputs[Union All Input 1].Columns[Quantity]"
+                          cachedCodepage="65001"
+                          cachedDataType="str"
+                          cachedLength="50"
+                          cachedName="Quantity"
+                          lineageId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\Flat File Source.Outputs[Flat File Source Output].Columns[Quantity]">
+                          <properties>
+                            <property
+                              containsID="true"
+                              dataType="System.Int32"
+                              description="Output column lineage ID"
+                              name="OutputColumnLineageID">#{Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\Union All.Outputs[Union All Output 1].Columns[Quantity]}</property>
+                          </properties>
+                        </inputColumn>
+                        <inputColumn
+                          refId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\Union All.Inputs[Union All Input 1].Columns[UnitPrice]"
+                          cachedCodepage="65001"
+                          cachedDataType="str"
+                          cachedLength="50"
+                          cachedName="UnitPrice"
+                          lineageId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\Flat File Source.Outputs[Flat File Source Output].Columns[UnitPrice]">
+                          <properties>
+                            <property
+                              containsID="true"
+                              dataType="System.Int32"
+                              description="Output column lineage ID"
+                              name="OutputColumnLineageID">#{Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\Union All.Outputs[Union All Output 1].Columns[UnitPrice]}</property>
+                          </properties>
+                        </inputColumn>
+                        <inputColumn
+                          refId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\Union All.Inputs[Union All Input 1].Columns[CleanWarehouse]"
+                          cachedDataType="wstr"
+                          cachedLength="20"
+                          cachedName="CleanWarehouse"
+                          lineageId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\Derived Column.Outputs[Derived Column Output].Columns[CleanWarehouse]">
+                          <properties>
+                            <property
+                              containsID="true"
+                              dataType="System.Int32"
+                              description="Output column lineage ID"
+                              name="OutputColumnLineageID">#{Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\Union All.Outputs[Union All Output 1].Columns[CleanWarehouse]}</property>
+                          </properties>
+                        </inputColumn>
+                        <inputColumn
+                          refId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\Union All.Inputs[Union All Input 1].Columns[CleanProduct]"
+                          cachedDataType="wstr"
+                          cachedLength="50"
+                          cachedName="CleanProduct"
+                          lineageId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\Derived Column.Outputs[Derived Column Output].Columns[CleanProduct]">
+                          <properties>
+                            <property
+                              containsID="true"
+                              dataType="System.Int32"
+                              description="Output column lineage ID"
+                              name="OutputColumnLineageID">#{Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\Union All.Outputs[Union All Output 1].Columns[CleanProduct]}</property>
+                          </properties>
+                        </inputColumn>
+                        <inputColumn
+                          refId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\Union All.Inputs[Union All Input 1].Columns[SourceFile]"
+                          cachedDataType="wstr"
+                          cachedLength="255"
+                          cachedName="SourceFile"
+                          lineageId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\Derived Column.Outputs[Derived Column Output].Columns[SourceFile]">
+                          <properties>
+                            <property
+                              containsID="true"
+                              dataType="System.Int32"
+                              description="Output column lineage ID"
+                              name="OutputColumnLineageID">#{Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\Union All.Outputs[Union All Output 1].Columns[SourceFile]}</property>
+                          </properties>
+                        </inputColumn>
+                        <inputColumn
+                          refId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\Union All.Inputs[Union All Input 1].Columns[ErrorReason]"
+                          cachedDataType="wstr"
+                          cachedLength="200"
+                          cachedName="ErrorReason"
+                          lineageId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\Derived Column.Outputs[Derived Column Output].Columns[ErrorReason]">
+                          <properties>
+                            <property
+                              containsID="true"
+                              dataType="System.Int32"
+                              description="Output column lineage ID"
+                              name="OutputColumnLineageID">#{Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\Union All.Outputs[Union All Output 1].Columns[ErrorReason]}</property>
+                          </properties>
+                        </inputColumn>
+                        <inputColumn
+                          refId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\Union All.Inputs[Union All Input 1].Columns[NumQty]"
+                          cachedDataType="i4"
+                          cachedName="NumQty"
+                          lineageId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\Data Conversion 1.Outputs[Data Conversion Output].Columns[NumQty]">
+                          <properties>
+                            <property
+                              containsID="true"
+                              dataType="System.Int32"
+                              description="Output column lineage ID"
+                              name="OutputColumnLineageID">#{Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\Union All.Outputs[Union All Output 1].Columns[NumQty]}</property>
+                          </properties>
+                        </inputColumn>
+                        <inputColumn
+                          refId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\Union All.Inputs[Union All Input 1].Columns[NumPrice]"
+                          cachedDataType="numeric"
+                          cachedName="NumPrice"
+                          cachedPrecision="18"
+                          cachedScale="2"
+                          lineageId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\Data Conversion 1.Outputs[Data Conversion Output].Columns[NumPrice]">
+                          <properties>
+                            <property
+                              containsID="true"
+                              dataType="System.Int32"
+                              description="Output column lineage ID"
+                              name="OutputColumnLineageID">#{Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\Union All.Outputs[Union All Output 1].Columns[NumPrice]}</property>
+                          </properties>
+                        </inputColumn>
+                      </inputColumns>
+                      <externalMetadataColumns />
+                    </input>
+                    <input
+                      refId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\Union All.Inputs[Union All Input 2]"
+                      hasSideEffects="true"
+                      name="Union All Input 2">
+                      <externalMetadataColumns />
+                    </input>
+                    <input
+                      refId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\Union All.Inputs[Union All Input 3]"
+                      dangling="true"
+                      hasSideEffects="true"
+                      name="Union All Input 3">
+                      <externalMetadataColumns />
+                    </input>
+                  </inputs>
+                  <outputs>
+                    <output
+                      refId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\Union All.Outputs[Union All Output 1]"
+                      name="Union All Output 1">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\Union All.Outputs[Union All Output 1].Columns[WarehouseCode]"
+                          codePage="65001"
+                          dataType="str"
+                          length="50"
+                          lineageId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\Union All.Outputs[Union All Output 1].Columns[WarehouseCode]"
+                          name="WarehouseCode" />
+                        <outputColumn
+                          refId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\Union All.Outputs[Union All Output 1].Columns[ProductCode]"
+                          codePage="65001"
+                          dataType="str"
+                          length="50"
+                          lineageId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\Union All.Outputs[Union All Output 1].Columns[ProductCode]"
+                          name="ProductCode" />
+                        <outputColumn
+                          refId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\Union All.Outputs[Union All Output 1].Columns[Quantity]"
+                          codePage="65001"
+                          dataType="str"
+                          length="50"
+                          lineageId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\Union All.Outputs[Union All Output 1].Columns[Quantity]"
+                          name="Quantity" />
+                        <outputColumn
+                          refId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\Union All.Outputs[Union All Output 1].Columns[UnitPrice]"
+                          codePage="65001"
+                          dataType="str"
+                          length="50"
+                          lineageId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\Union All.Outputs[Union All Output 1].Columns[UnitPrice]"
+                          name="UnitPrice" />
+                        <outputColumn
+                          refId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\Union All.Outputs[Union All Output 1].Columns[CleanWarehouse]"
+                          dataType="wstr"
+                          length="20"
+                          lineageId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\Union All.Outputs[Union All Output 1].Columns[CleanWarehouse]"
+                          name="CleanWarehouse" />
+                        <outputColumn
+                          refId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\Union All.Outputs[Union All Output 1].Columns[CleanProduct]"
+                          dataType="wstr"
+                          length="50"
+                          lineageId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\Union All.Outputs[Union All Output 1].Columns[CleanProduct]"
+                          name="CleanProduct" />
+                        <outputColumn
+                          refId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\Union All.Outputs[Union All Output 1].Columns[SourceFile]"
+                          dataType="wstr"
+                          length="255"
+                          lineageId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\Union All.Outputs[Union All Output 1].Columns[SourceFile]"
+                          name="SourceFile" />
+                        <outputColumn
+                          refId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\Union All.Outputs[Union All Output 1].Columns[ErrorReason]"
+                          dataType="wstr"
+                          length="200"
+                          lineageId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\Union All.Outputs[Union All Output 1].Columns[ErrorReason]"
+                          name="ErrorReason" />
+                        <outputColumn
+                          refId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\Union All.Outputs[Union All Output 1].Columns[NumQty]"
+                          dataType="i4"
+                          lineageId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\Union All.Outputs[Union All Output 1].Columns[NumQty]"
+                          name="NumQty" />
+                        <outputColumn
+                          refId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\Union All.Outputs[Union All Output 1].Columns[NumPrice]"
+                          dataType="numeric"
+                          lineageId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\Union All.Outputs[Union All Output 1].Columns[NumPrice]"
+                          name="NumPrice"
+                          precision="18"
+                          scale="2" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+              </components>
+              <paths>
+                <path
+                  refId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch.Paths[Aggregate Output 1]"
+                  endId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\OLE DB Destination.Inputs[OLE DB Destination Input]"
+                  name="Aggregate Output 1"
+                  startId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\Aggregate.Outputs[Aggregate Output 1]" />
+                <path
+                  refId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch.Paths[Data Conversion Output]"
+                  endId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\DST_ErrorRows.Inputs[OLE DB Destination Input]"
+                  name="Data Conversion Output"
+                  startId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\Data Conversion.Outputs[Data Conversion Output]" />
+                <path
+                  refId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch.Paths[Data Conversion Output1]"
+                  endId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\Union All.Inputs[Union All Input 1]"
+                  name="Data Conversion Output"
+                  startId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\Data Conversion 1.Outputs[Data Conversion Output]" />
+                <path
+                  refId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch.Paths[Derived Column Output]"
+                  endId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\Conditional Split.Inputs[Conditional Split Input]"
+                  name="Derived Column Output"
+                  startId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\Derived Column.Outputs[Derived Column Output]" />
+                <path
+                  refId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch.Paths[Derived Column Output1]"
+                  endId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\Derived Column.Inputs[Derived Column Input]"
+                  name="Derived Column Output"
+                  startId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\Derived Column 1.Outputs[Derived Column Output]" />
+                <path
+                  refId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch.Paths[Flat File Source Output]"
+                  endId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\Derived Column 1.Inputs[Derived Column Input]"
+                  name="Flat File Source Output"
+                  startId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\Flat File Source.Outputs[Flat File Source Output]" />
+                <path
+                  refId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch.Paths[OLE DB Source Output]"
+                  endId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\Union All.Inputs[Union All Input 2]"
+                  name="OLE DB Source Output"
+                  startId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\OLE DB Source.Outputs[OLE DB Source Output]" />
+                <path
+                  refId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch.Paths[Rejected_Rows]"
+                  endId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\Data Conversion.Inputs[Data Conversion Input]"
+                  name="Rejected_Rows"
+                  startId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\Conditional Split.Outputs[Rejected_Rows]" />
+                <path
+                  refId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch.Paths[Union All Output 1]"
+                  endId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\Aggregate.Inputs[Aggregate Input 1]"
+                  name="Union All Output 1"
+                  startId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\Union All.Outputs[Union All Output 1]" />
+                <path
+                  refId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch.Paths[Valid_Rows]"
+                  endId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\Data Conversion 1.Inputs[Data Conversion Input]"
+                  name="Valid_Rows"
+                  startId="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\Conditional Split.Outputs[Valid_Rows]" />
+              </paths>
+            </pipeline>
+          </DTS:ObjectData>
+        </DTS:Executable>
+      </DTS:Executables>
+      <DTS:ForEachVariableMappings>
+        <DTS:ForEachVariableMapping
+          DTS:CreationName=""
+          DTS:DTSID="{F170549A-722D-4F18-9CB9-33E3888E8808}"
+          DTS:ObjectName="{F170549A-722D-4F18-9CB9-33E3888E8808}"
+          DTS:ValueIndex="0"
+          DTS:VariableName="User::CurrentFilePath" />
+      </DTS:ForEachVariableMappings>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\SQL_Truncate_Staging"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{09A6BC22-F2AD-42D3-A4D6-3B682559BD5D}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="SQL_Truncate_Staging"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2025; © 2025 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{93E1B864-C286-43BD-B83C-9703F9723FCB}"
+          SQLTask:SqlStatementSource="TRUNCATE TABLE dbo.ETLErrorRows;&#xA;TRUNCATE TABLE dbo.FactWarehouseSummary;" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint]"
+      DTS:CreationName=""
+      DTS:DTSID="{B7AE2711-2040-4E85-85E9-2F77A9E4B8DB}"
+      DTS:From="Package\SQL_Truncate_Staging"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint"
+      DTS:To="Package\FEL_Loop_CSV_Files" />
+  </DTS:PrecedenceConstraints>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="8">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="196.666666666667,42.6666666666667"
+          Id="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch"
+          TopLeft="51.4999867007141,22.2833251818024" />
+        <ContainerLayout
+          HeaderHeight="43"
+          IsExpanded="True"
+          PanelSize="256.666666666667,120"
+          Size="256.666666666667,162.666666666667"
+          Id="Package\FEL_Loop_CSV_Files"
+          TopLeft="246.249988991768,136.499993491173" />
+        <NodeLayout
+          Size="186.666666666667,42.6666666666667"
+          Id="Package\SQL_Truncate_Staging"
+          TopLeft="254.999988600612,50.6999975824357" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint]"
+          TopLeft="348.333321933945,93.3666642491024">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="26.2500003911555,43.1333292420707"
+              Start="0,0"
+              End="26.2500003911555,35.6333292420707">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,17.5666646210353" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,17.5666646210353"
+                    Point2="0,21.5666646210353"
+                    Point3="4,21.5666646210353" />
+                  <mssgle:LineSegment
+                    End="22.2500003911555,21.5666646210353" />
+                  <mssgle:CubicBezierSegment
+                    Point1="22.2500003911555,21.5666646210353"
+                    Point2="26.2500003911555,21.5666646210353"
+                    Point3="26.2500003911555,25.5666646210353" />
+                  <mssgle:LineSegment
+                    End="26.2500003911555,35.6333292420707" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <TaskHost
+    design-time-name="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="32" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        <NodeLayout
+          Size="154.666666666667,42.6666666666667"
+          Id="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\Derived Column"
+          TopLeft="235.624989466742,167.049992034435" />
+        <NodeLayout
+          Size="157.333333333334,42.6666666666667"
+          Id="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\Data Conversion"
+          TopLeft="199.999991059304,318.516661428611" />
+        <NodeLayout
+          Size="172,42.6666666666667"
+          Id="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\OLE DB Destination"
+          TopLeft="280.624987455085,641.249989926815" />
+        <NodeLayout
+          Size="153.333333333334,42.6666666666667"
+          Id="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\DST_ErrorRows"
+          TopLeft="209.374990640208,393.199987354279" />
+        <NodeLayout
+          Size="164,42.6666666666667"
+          Id="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\Derived Column 1"
+          TopLeft="267.87499052845,85.9999975204469" />
+        <NodeLayout
+          Size="121.333333333334,42.6666666666667"
+          Id="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\Union All"
+          TopLeft="308.12498622574,487.383324747881" />
+        <NodeLayout
+          Size="150.666666666667,42.6666666666667"
+          Id="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\OLE DB Source"
+          TopLeft="465.624979184941,399.349991352558" />
+        <NodeLayout
+          Size="152,42.6666666666667"
+          Id="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\Flat File Source"
+          TopLeft="269.99998793006,8.44999959707266" />
+        <NodeLayout
+          Size="128,42.6666666666667"
+          Id="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\Aggregate"
+          TopLeft="306.874986281619,565.333323415121" />
+        <NodeLayout
+          Size="156,42.6666666666667"
+          Id="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\Conditional Split"
+          TopLeft="271.24998787418,245.383323508104" />
+        <NodeLayout
+          Size="166.666666666667,42.6666666666667"
+          Id="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\Data Conversion 1"
+          TopLeft="373.124983320013,318.04999761343" />
+        <EdgeLayout
+          Id="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch.Paths[Data Conversion Output1]"
+          TopLeft="456.458316653346,360.716664280097">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-87.6666637609402,126.666660467784"
+              Start="0,0"
+              End="-87.6666637609402,119.166660467784">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,59.333330233892" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,59.333330233892"
+                    Point2="0,63.333330233892"
+                    Point3="-4,63.333330233892" />
+                  <mssgle:LineSegment
+                    End="-83.6666637609402,63.333330233892" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-83.6666637609402,63.333330233892"
+                    Point2="-87.6666637609402,63.333330233892"
+                    Point3="-87.6666637609402,67.333330233892" />
+                  <mssgle:LineSegment
+                    End="-87.6666637609402,119.166660467784" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch.Paths[Data Conversion Output]"
+          TopLeft="282.354157516423,361.183328095277">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,32.0166592590018"
+              Start="0,0"
+              End="0,24.5166592590018">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,24.5166592590018" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch.Paths[Aggregate Output 1]"
+          TopLeft="368.749986868352,607.999990081787">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,33.2499998450279"
+              Start="0,0"
+              End="0,25.7499998450279">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,25.7499998450279" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch.Paths[Valid_Rows]"
+          TopLeft="373.916654540847,288.049990174771">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="82.5416621124993,30.0000074386595"
+              Start="0,0"
+              End="82.5416621124993,22.5000074386595">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,8.18274413752668" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,8.18274413752668"
+                    Point2="0,12.1827441375267"
+                    Point3="4,12.1827441375267" />
+                  <mssgle:LineSegment
+                    End="78.5416621124993,12.1827441375267" />
+                  <mssgle:CubicBezierSegment
+                    Point1="78.5416621124993,12.1827441375267"
+                    Point2="82.5416621124993,12.1827441375267"
+                    Point3="82.5416621124993,16.1827441375267" />
+                  <mssgle:LineSegment
+                    End="82.5416621124993,22.5000074386595" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="15.1900693374996,17.1827441375267,52.1615234375,11.0625"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch.Paths[Union All Output 1]"
+          TopLeft="369.833319587013,530.049991414547">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,35.2833320005735"
+              Start="0,0"
+              End="0,27.7833320005735">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,27.7833320005735" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch.Paths[Rejected_Rows]"
+          TopLeft="349.24998787418,288.049990174771">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-70.5833301482103,30.4666712538401"
+              Start="0,0"
+              End="-70.5833301482103,22.9666712538401">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,11.2333356269201" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,11.2333356269201"
+                    Point2="0,15.2333356269201"
+                    Point3="-4,15.2333356269201" />
+                  <mssgle:LineSegment
+                    End="-66.5833301482103,15.2333356269201" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-66.5833301482103,15.2333356269201"
+                    Point2="-70.5833301482103,15.2333356269201"
+                    Point3="-70.5833301482103,19.2333356269201" />
+                  <mssgle:LineSegment
+                    End="-70.5833301482103,22.9666712538401" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-69.4642431991051,20.2333356269201,68.34515625,11.6630859375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch.Paths[OLE DB Source Output]"
+          TopLeft="540.958312518275,442.016658019225">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-153.277770736979,45.3666667286556"
+              Start="0,0"
+              End="-153.277770736979,37.8666667286556">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,22.8657267178372" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,22.8657267178372"
+                    Point2="0,26.8657267178372"
+                    Point3="-4,26.8657267178372" />
+                  <mssgle:LineSegment
+                    End="-149.277770736979,26.8657267178372" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-149.277770736979,26.8657267178372"
+                    Point2="-153.277770736979,26.8657267178372"
+                    Point3="-153.277770736979,30.8657267178372" />
+                  <mssgle:LineSegment
+                    End="-153.277770736979,37.8666667286556" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch.Paths[Flat File Source Output]"
+          TopLeft="347.937489229255,51.1166662637393">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,34.8833312567076"
+              Start="0,0"
+              End="0,27.3833312567076">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,27.3833312567076" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch.Paths[Derived Column Output1]"
+          TopLeft="349.87499052845,128.666664187114">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-36.9166677283747,38.3833278473219"
+              Start="0,0"
+              End="-36.9166677283747,30.8833278473219">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,15.191663923661" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,15.191663923661"
+                    Point2="0,19.191663923661"
+                    Point3="-4,19.191663923661" />
+                  <mssgle:LineSegment
+                    End="-32.9166677283747,19.191663923661" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-32.9166677283747,19.191663923661"
+                    Point2="-36.9166677283747,19.191663923661"
+                    Point3="-36.9166677283747,23.191663923661" />
+                  <mssgle:LineSegment
+                    End="-36.9166677283747,30.8833278473219" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch.Paths[Derived Column Output]"
+          TopLeft="312.958322800075,209.716658701102">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="36.291665074105,35.6666648070018"
+              Start="0,0"
+              End="36.291665074105,28.1666648070018">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,13.8333324035009" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,13.8333324035009"
+                    Point2="0,17.8333324035009"
+                    Point3="4,17.8333324035009" />
+                  <mssgle:LineSegment
+                    End="32.291665074105,17.8333324035009" />
+                  <mssgle:CubicBezierSegment
+                    Point1="32.291665074105,17.8333324035009"
+                    Point2="36.291665074105,17.8333324035009"
+                    Point3="36.291665074105,21.8333324035009" />
+                  <mssgle:LineSegment
+                    End="36.291665074105,28.1666648070018" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\OLE DB Destination">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\DST_ErrorRows">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\FEL_Loop_CSV_Files\DFT_Process_CSV_Batch\OLE DB Source">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>

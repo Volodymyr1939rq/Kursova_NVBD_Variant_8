@@ -1,0 +1,9 @@
+﻿backup/*.bak
+backup/*.trn
+.vs/
+**/bin/
+**/obj/
+*.user
+*.rsuser
+*.suo
+*.rdl.data
